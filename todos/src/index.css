@@ -20,3 +20,16 @@ body {
   color: #e9dad9;
   text-align: center;
 }
+
+button {
+  display: inline-block;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+  text-align: left;
+  padding: 0.7em;
+}

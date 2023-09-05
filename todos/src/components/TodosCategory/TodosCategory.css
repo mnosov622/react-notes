@@ -1,11 +1,11 @@
 .categories {
   display: flex;
   font-size: 0.8em;
-  margin-left: auto;
+  margin: 0 auto;
   color: #8a8989;
   padding: 0 0.8em;
 }
 
-.categories > p:not(:last-child) {
+.categories > button:not(:last-child) {
   margin-right: 0.5em;
 }

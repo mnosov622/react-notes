@@ -1,11 +1,15 @@
 import "./TodosCategory.css";
 
-const TodosCategory = () => {
+type Props = {
+  setActive: (category: string) => void;
+};
+
+const TodosCategory = ({ setActive }: Props) => {
   return (
     <section className="categories">
-      <p>All</p>
-      <p>Active</p>
-      <p>Completed</p>
+      <button onClick={() => setActive("All")}>All</button>
+      <button onClick={() => setActive("Active")}>Active</button>
+      <button onClick={() => setActive("Completed")}>Completed</button>
     </section>
   );
 };

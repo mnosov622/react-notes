@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { todoItems } from "../../constants/todos";
 import "./TodoList.css";
 import TodosCategory from "../TodosCategory/TodosCategory";
 
 const TodoList = () => {
   const [checkedItems, setCheckedItems] = useState([]);
+  const [activeCategory, setActiveCategory] = useState("All");
+
   const itemsLeft = todoItems.filter((item) => !checkedItems.includes(item.id)).length;
 
   const handleCheckboxChange = (itemId) => {
@@ -17,10 +19,27 @@ const TodoList = () => {
 
   const isItemChecked = (itemId) => checkedItems.includes(itemId);
 
+  const setActive = (category: string) => {
+    setActiveCategory(category);
+    getFilteredItems();
+  };
+
+  const getFilteredItems = () => {
+    if (activeCategory === "All") {
+      return todoItems;
+    } else if (activeCategory === "Active") {
+      return todoItems.filter((item) => !checkedItems.includes(item.id));
+    } else {
+      return todoItems.filter((item) => checkedItems.includes(item.id));
+    }
+  };
+
+  const filteredTodoItems = useMemo(() => getFilteredItems(), [activeCategory, checkedItems]);
+
   return (
     <section className="todo-list-area">
       <ul className="todo-list">
-        {todoItems.map((todoItem) => (
+        {filteredTodoItems.map((todoItem) => (
           <li
             key={todoItem.id}
             className={`todo-item ${isItemChecked(todoItem.id) ? "checked" : ""}`}
@@ -44,8 +63,8 @@ const TodoList = () => {
 
       <div className="todo-list-footer">
         <span className="items-left">{itemsLeft} items left</span>
-        <TodosCategory />
-        <p className="clear-completed">Clear Completed</p>
+        <TodosCategory setActive={setActive} />
+        <button className="clear-completed">Clear Completed</button>
       </div>
     </section>
   );
