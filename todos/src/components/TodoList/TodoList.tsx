@@ -2,10 +2,11 @@ import React, { useState, useMemo } from "react";
 import { todoItems } from "../../constants/todos";
 import "./TodoList.css";
 import TodosCategory from "../TodosCategory/TodosCategory";
+import { act } from "react-dom/test-utils";
 
 const TodoList = () => {
   const [checkedItems, setCheckedItems] = useState([]);
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [filteredTodoItems, setFilteredTodoItems] = useState(todoItems);
 
   const itemsLeft = todoItems.filter((item) => !checkedItems.includes(item.id)).length;
 
@@ -20,21 +21,21 @@ const TodoList = () => {
   const isItemChecked = (itemId) => checkedItems.includes(itemId);
 
   const setActive = (category: string) => {
-    setActiveCategory(category);
-    getFilteredItems();
-  };
-
-  const getFilteredItems = () => {
-    if (activeCategory === "All") {
-      return todoItems;
-    } else if (activeCategory === "Active") {
-      return todoItems.filter((item) => !checkedItems.includes(item.id));
-    } else {
-      return todoItems.filter((item) => checkedItems.includes(item.id));
+    if (category === "All") {
+      setFilteredTodoItems(todoItems);
+    }
+    if (category === "Active") {
+      setFilteredTodoItems(todoItems.filter((item) => !checkedItems.includes(item.id)));
+    }
+    if (category === "Completed") {
+      setFilteredTodoItems(todoItems.filter((item) => checkedItems.includes(item.id)));
     }
   };
 
-  const filteredTodoItems = useMemo(() => getFilteredItems(), [activeCategory, checkedItems]);
+  const clearCompleted = () => {
+    const filteredTodoItems = todoItems.filter((item) => !checkedItems.includes(item.id));
+    setFilteredTodoItems(filteredTodoItems);
+  };
 
   return (
     <section className="todo-list-area">
@@ -61,10 +62,13 @@ const TodoList = () => {
         ))}
       </ul>
 
+      {itemsLeft === 0 && <div className="todo-list-footer">No items left</div>}
       <div className="todo-list-footer">
         <span className="items-left">{itemsLeft} items left</span>
         <TodosCategory setActive={setActive} />
-        <button className="clear-completed">Clear Completed</button>
+        <button className="clear-completed" onClick={() => clearCompleted()}>
+          Clear Completed
+        </button>
       </div>
     </section>
   );
