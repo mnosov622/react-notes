@@ -1,7 +1,6 @@
 .todo-list-area {
   margin-top: 20px;
   background-color: #fff;
-  padding: 0.5em;
 }
 
 .todo-list {
@@ -9,4 +8,55 @@
   margin: 0;
   padding: 0;
   width: 100%;
+}
+
+/* Custom Checkbox */
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #deeae8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-checkbox.checked {
+  background-color: white;
+  border-color: #deeae8;
+}
+
+.checkmark {
+  color: #4caf50;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.todo-name.crossed {
+  text-decoration: line-through;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #deeae8;
+  padding: 0.5em;
+}
+
+.todo-list input {
+  display: none;
+}
+
+.todo-list label {
+  display: flex;
+  cursor: pointer;
+}
+
+.items-left {
+  color: #8a8989;
+  font-size: 0.8rem;
 }

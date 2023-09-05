@@ -4,13 +4,12 @@ import "./TodoList.css";
 
 const TodoList = () => {
   const [checkedItems, setCheckedItems] = useState([]);
+  const itemsLeft = todoItems.filter((item) => !checkedItems.includes(item.id)).length;
 
   const handleCheckboxChange = (itemId) => {
     if (checkedItems.includes(itemId)) {
-      // Item is already checked, so uncheck it
       setCheckedItems(checkedItems.filter((id) => id !== itemId));
     } else {
-      // Item is not checked, so check it
       setCheckedItems([...checkedItems, itemId]);
     }
   };
@@ -25,18 +24,24 @@ const TodoList = () => {
             key={todoItem.id}
             className={`todo-item ${isItemChecked(todoItem.id) ? "checked" : ""}`}
           >
-            <div
-              className={`custom-checkbox ${isItemChecked(todoItem.id) ? "checked" : ""}`}
-              onClick={() => handleCheckboxChange(todoItem.id)}
-            >
-              {isItemChecked(todoItem.id) && <span className="checkmark">&#10003;</span>}
-            </div>
-            <span className={`todo-name ${isItemChecked(todoItem.id) ? "crossed" : ""}`}>
-              {todoItem.text}
-            </span>
+            <label>
+              <input
+                type="checkbox"
+                checked={isItemChecked(todoItem.id)}
+                onChange={() => handleCheckboxChange(todoItem.id)}
+              />
+              <div className={`custom-checkbox ${isItemChecked(todoItem.id) ? "checked" : ""}`}>
+                {isItemChecked(todoItem.id) && <span className="checkmark">&#10003;</span>}
+              </div>
+              <span className={`todo-name ${isItemChecked(todoItem.id) ? "crossed" : ""}`}>
+                {todoItem.text}
+              </span>
+            </label>
           </li>
         ))}
       </ul>
+
+      <p className="items-left">{itemsLeft} items left</p>
     </section>
   );
 };
