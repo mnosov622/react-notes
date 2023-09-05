@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { todoItems } from "../../constants/todos";
 import "./TodoList.css";
+import TodosCategory from "../TodosCategory/TodosCategory";
 
 const TodoList = () => {
   const [checkedItems, setCheckedItems] = useState([]);
@@ -41,7 +42,11 @@ const TodoList = () => {
         ))}
       </ul>
 
-      <p className="items-left">{itemsLeft} items left</p>
+      <div className="todo-list-footer">
+        <span className="items-left">{itemsLeft} items left</span>
+        <TodosCategory />
+        <p className="clear-completed">Clear Completed</p>
+      </div>
     </section>
   );
 };
