@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from "react";
+import { useState } from "react";
 import { todoItems } from "../../constants/todos";
 import "./TodoList.css";
 import TodosCategory from "../TodosCategory/TodosCategory";
-import { act } from "react-dom/test-utils";
+import NewTodoForm from "../NewTodoForm/NewTodoForm";
 
 const TodoList = () => {
   const [checkedItems, setCheckedItems] = useState([]);
@@ -37,8 +37,20 @@ const TodoList = () => {
     setFilteredTodoItems(filteredTodoItems);
   };
 
+  const submit = (todoText: string) => {
+    const newTodoItems = [
+      ...filteredTodoItems,
+      {
+        id: Date.now(),
+        text: todoText,
+      },
+    ];
+    setFilteredTodoItems(newTodoItems);
+  };
+
   return (
     <section className="todo-list-area">
+      <NewTodoForm onSubmit={submit} />
       <ul className="todo-list">
         {filteredTodoItems.map((todoItem) => (
           <li
