@@ -1,10 +1,19 @@
 import React from "react";
 import "./NewTodoForm.css";
 
-const NewTodoForm = ({ onSubmit }) => {
+type Props = {
+  onSubmit: (todoText: string) => void;
+};
+
+const NewTodoForm = ({ onSubmit }: Props) => {
   const handleSubmit = (e: Event) => {
     e.preventDefault();
-    onSubmit(todoText.current.value);
+
+    if (!todoText.current.value.trim()) {
+      return;
+    }
+
+    onSubmit(todoText.current?.value);
     todoText.current.value = "";
   };
   const todoText = React.useRef(null);
