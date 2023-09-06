@@ -5,14 +5,17 @@ import TodosCategory from "../TodosCategory/TodosCategory";
 import NewTodoForm from "../NewTodoForm/NewTodoForm";
 
 const TodoList = () => {
-  const [checkedItems, setCheckedItems] = useState<number[]>([]);
+  const [checkedItems, setCheckedItems] = useState<number[]>([]); // Specify the type as number[]
   const [filteredTodoItems, setFilteredTodoItems] = useState(todoItems);
+  const [itemsLeft, setItemsLeft] = useState(todoItems.length);
 
   const handleCheckboxChange = (itemId: number) => {
     if (checkedItems.includes(itemId)) {
       setCheckedItems(checkedItems.filter((id) => id !== itemId));
+      setItemsLeft(itemsLeft + 1);
     } else {
       setCheckedItems([...checkedItems, itemId]);
+      setItemsLeft(itemsLeft - 1);
     }
   };
 
@@ -35,6 +38,7 @@ const TodoList = () => {
       return !checkedItems.includes(item.id) || item.id === 0;
     });
     setFilteredTodoItems(filteredTodoItems);
+    setCheckedItems([]);
   };
 
   const submit = (todoText: string) => {
@@ -45,6 +49,8 @@ const TodoList = () => {
         text: todoText,
       },
     ];
+
+    setItemsLeft(itemsLeft + 1);
     setFilteredTodoItems(newTodoItems);
   };
 
@@ -75,7 +81,7 @@ const TodoList = () => {
       </ul>
 
       <div className="todo-list-footer">
-        <span className="items-left">{filteredTodoItems.length} items</span>
+        <span className="items-left">{itemsLeft} items</span>
         <TodosCategory setActive={setActive} />
         <button className="clear-completed" onClick={() => clearCompleted()}>
           Clear Completed
