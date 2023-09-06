@@ -54,6 +54,7 @@ const TodoItems = () => {
   const clearCompleted = () => {
     const filteredTodoItems = todos.filter((todoItem) => !isItemChecked(todoItem.id));
     setTodos(filteredTodoItems);
+    localStorage.setItem("todos", JSON.stringify(filteredTodoItems));
   };
 
   const setActive = (category: string) => {
