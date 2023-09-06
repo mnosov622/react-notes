@@ -75,7 +75,7 @@ const TodoList = () => {
       </ul>
 
       <div className="todo-list-footer">
-        <span className="items-left">{filteredTodoItems.length} items left</span>
+        <span className="items-left">{filteredTodoItems.length} items</span>
         <TodosCategory setActive={setActive} />
         <button className="clear-completed" onClick={() => clearCompleted()}>
           Clear Completed

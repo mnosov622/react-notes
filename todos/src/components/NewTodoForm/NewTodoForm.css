@@ -1,0 +1,20 @@
+.todo-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-icon {
+  margin-right: 10px; /* Adjust the spacing between the icon and input */
+}
+
+input[type="text"] {
+  flex: 1;
+  border: none;
+  padding: 0.5em;
+  font-size: 16px;
+}
