@@ -37,7 +37,7 @@ const TodoList = () => {
     setFilteredTodoItems(filteredTodoItems);
   };
 
-  const submit = (todoText: string, e: Event) => {
+  const submit = (todoText: string) => {
     const newTodoItems = [
       ...filteredTodoItems,
       {
@@ -74,9 +74,8 @@ const TodoList = () => {
         ))}
       </ul>
 
-      {itemsLeft === 0 && <div className="todo-list-footer">No items left</div>}
       <div className="todo-list-footer">
-        <span className="items-left">{itemsLeft} items left</span>
+        <span className="items-left">{filteredTodoItems.length} items left</span>
         <TodosCategory setActive={setActive} />
         <button className="clear-completed" onClick={() => clearCompleted()}>
           Clear Completed
