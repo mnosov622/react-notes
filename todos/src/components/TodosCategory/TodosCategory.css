@@ -9,3 +9,8 @@
 .categories > button:not(:last-child) {
   margin-right: 0.5em;
 }
+
+button.active {
+  border-bottom: 2px solid #007bff; /* Add a border to the active button */
+  color: #007bff; /* Change text color for the active button */
+}
