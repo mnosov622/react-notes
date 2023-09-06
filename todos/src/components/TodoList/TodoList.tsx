@@ -1,92 +1,32 @@
-import { useState } from "react";
 import { todoItems } from "../../constants/todos";
-import "./TodoList.css";
-import TodosCategory from "../TodosCategory/TodosCategory";
-import NewTodoForm from "../NewTodoForm/NewTodoForm";
+import { useState, useEffect } from "react";
 
-const TodoList = () => {
-  const [checkedItems, setCheckedItems] = useState<number[]>([]); // Specify the type as number[]
-  const [filteredTodoItems, setFilteredTodoItems] = useState(todoItems);
-  const [itemsLeft, setItemsLeft] = useState(todoItems.length);
+interface TodoListProps {
+  id: number;
+  text: string;
+}
+const TodoItems = () => {
+  const [todos, setTodos] = useState<TodoListProps[]>([]);
 
-  const handleCheckboxChange = (itemId: number) => {
-    if (checkedItems.includes(itemId)) {
-      setCheckedItems(checkedItems.filter((id) => id !== itemId));
-      setItemsLeft(itemsLeft + 1);
+  useEffect(() => {
+    const storedTodos = localStorage.getItem("todos");
+    if (storedTodos) {
+      setTodos(JSON.parse(storedTodos));
     } else {
-      setCheckedItems([...checkedItems, itemId]);
-      setItemsLeft(itemsLeft - 1);
+      setTodos(todoItems);
     }
-  };
-
-  const isItemChecked = (itemId: number) => checkedItems.includes(itemId);
-
-  const setActive = (category: string) => {
-    if (category === "All") {
-      setFilteredTodoItems(todoItems);
-    }
-    if (category === "Active") {
-      setFilteredTodoItems(todoItems.filter((item) => !checkedItems.includes(item.id)));
-    }
-    if (category === "Completed") {
-      setFilteredTodoItems(todoItems.filter((item) => checkedItems.includes(item.id)));
-    }
-  };
-
-  const clearCompleted = () => {
-    const filteredTodoItems = todoItems.filter((item) => !checkedItems.includes(item.id));
-    setFilteredTodoItems(filteredTodoItems);
-    setCheckedItems([]);
-  };
-
-  const submit = (todoText: string) => {
-    const newTodoItems = [
-      ...filteredTodoItems,
-      {
-        id: Date.now(),
-        text: todoText,
-      },
-    ];
-
-    setItemsLeft(itemsLeft + 1);
-    setFilteredTodoItems(newTodoItems);
-  };
+  }, []);
 
   return (
-    <section className="todo-list-area">
-      <NewTodoForm onSubmit={submit} />
+    <div>
+      <h1>Todo List</h1>
       <ul className="todo-list">
-        {filteredTodoItems.map((todoItem) => (
-          <li
-            key={todoItem.id}
-            className={`todo-item ${isItemChecked(todoItem.id) ? "checked" : ""}`}
-          >
-            <label>
-              <input
-                type="checkbox"
-                checked={isItemChecked(todoItem.id)}
-                onChange={() => handleCheckboxChange(todoItem.id)}
-              />
-              <div className={`custom-checkbox ${isItemChecked(todoItem.id) ? "checked" : ""}`}>
-                {isItemChecked(todoItem.id) && <span className="checkmark">&#10003;</span>}
-              </div>
-              <span className={`todo-name ${isItemChecked(todoItem.id) ? "crossed" : ""}`}>
-                {todoItem.text}
-              </span>
-            </label>
-          </li>
+        {todos.map((todo) => (
+          <li key={todo.id}>{todo.text}</li>
         ))}
       </ul>
-
-      <div className="todo-list-footer">
-        <span className="items-left">{itemsLeft} items</span>
-        <TodosCategory setActive={setActive} />
-        <button className="clear-completed" onClick={() => clearCompleted()}>
-          Clear Completed
-        </button>
-      </div>
-    </section>
+    </div>
   );
 };
 
-export default TodoList;
+export default TodoItems;
