@@ -6,11 +6,11 @@ type Props = {
 };
 
 const TodosCategory = ({ setActive }: Props) => {
-  const [activeCategory, setActiveCategory] = useState("All"); // Initialize with the default active category
+  const [activeCategory, setActiveCategory] = useState("All");
 
   const handleSetActive = (category: string) => {
     setActive(category);
-    setActiveCategory(category); // Update the active category state
+    setActiveCategory(category);
   };
 
   return (

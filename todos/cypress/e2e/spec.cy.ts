@@ -46,4 +46,24 @@ describe("Notes App funcionality", () => {
 
     cy.get("li.todo-item").should("have.length", 0);
   });
+
+  it("should display 5 completed items after clicking Completed", () => {
+    cy.get("li.todo-item label").each(($el) => {
+      cy.wrap($el).click();
+    });
+
+    cy.contains("button", "Completed").click();
+
+    cy.get("li.todo-item.checked").should("have.length", 5);
+  });
+
+  it("should display 0 items after clicking Active", () => {
+    cy.get("li.todo-item label").each(($el) => {
+      cy.wrap($el).click();
+    });
+
+    cy.contains("button", "Active").click();
+
+    cy.get("li.todo-item").should("not.exist");
+  });
 });
