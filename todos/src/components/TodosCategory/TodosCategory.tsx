@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./TodosCategory.css";
 
 type Props = {
   setActive: (category: string) => void;

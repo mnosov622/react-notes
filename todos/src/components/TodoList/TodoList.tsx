@@ -37,7 +37,7 @@ const TodoList = () => {
     setFilteredTodoItems(filteredTodoItems);
   };
 
-  const submit = (todoText: string) => {
+  const submit = (todoText: string, e: Event) => {
     const newTodoItems = [
       ...filteredTodoItems,
       {
