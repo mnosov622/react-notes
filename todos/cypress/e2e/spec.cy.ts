@@ -66,4 +66,32 @@ describe("Notes App funcionality", () => {
 
     cy.get("li.todo-item").should("not.exist");
   });
+
+  it("should add a new item, refresh the page, and check if items are updated", () => {
+    const newItemText = "New Todo Item";
+    cy.get(".todo-form input").type(newItemText);
+    cy.get(".todo-form").submit();
+
+    cy.contains(".todo-item", newItemText).should("be.visible");
+
+    cy.reload();
+
+    cy.contains(".todo-item", newItemText).should("be.visible");
+  });
+
+  it("should check and uncheck all labels without changing .items-left value", () => {
+    cy.get(".items-left").invoke("text").as("initialText");
+
+    cy.get("li.todo-item label").each(($el) => {
+      cy.wrap($el).click();
+    });
+
+    cy.get("li.todo-item label").each(($el) => {
+      cy.wrap($el).click();
+    });
+
+    cy.get("@initialText").then((initialText) => {
+      cy.get(".items-left").should("contain", initialText);
+    });
+  });
 });
