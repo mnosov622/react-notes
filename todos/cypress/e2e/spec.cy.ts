@@ -12,4 +12,31 @@ describe("Notes App funcionality", () => {
     // Assert that the new note is displayed
     cy.contains("New Note");
   });
+
+  it("should mark all items as completed when clicked", () => {
+    cy.get("li.todo-item label").as("todoItems");
+
+    cy.get("@todoItems").each(($el) => {
+      cy.wrap($el).click();
+    });
+
+    cy.get("li.todo-item").should("have.class", "checked");
+  });
+
+  it("should unmark all items as completed when clicked", () => {
+    cy.get("li.todo-item label").as("todoItems");
+
+    cy.get("@todoItems").each(($el) => {
+      cy.wrap($el).click();
+    });
+
+    cy.wait(1000);
+
+    // Uncheck all items
+    cy.get("@todoItems").each(($el) => {
+      cy.wrap($el).click();
+    });
+
+    cy.get("li.todo-item").should("not.have.class", "checked");
+  });
 });
