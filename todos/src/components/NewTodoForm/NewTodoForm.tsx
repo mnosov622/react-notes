@@ -9,7 +9,7 @@ const NewTodoForm = ({ onSubmit }) => {
   };
   const todoText = React.useRef(null);
   return (
-    <form className="todo-form" onSubmit={(e) => handleSubmit(e)}>
+    <form className="todo-form" onSubmit={(e) => handleSubmit(e)} id="add-note-form">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -20,7 +20,7 @@ const NewTodoForm = ({ onSubmit }) => {
       >
         <path d="M7 10l5 5 5-5z" />
       </svg>
-      <input type="text" placeholder="Add a new task" ref={todoText} />
+      <input type="text" placeholder="Add a new task" ref={todoText} id="new-note-input" />
     </form>
   );
 };
