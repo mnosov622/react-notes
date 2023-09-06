@@ -94,4 +94,14 @@ describe("Notes App funcionality", () => {
       cy.get(".items-left").should("contain", initialText);
     });
   });
+
+  it("should check all items and click 'Clear Completed' to make .items-left 0", () => {
+    cy.get("li.todo-item label").each(($el) => {
+      cy.wrap($el).click();
+    });
+
+    cy.get("button.clear-completed").click();
+
+    cy.get(".items-left").should("contain", "0 items");
+  });
 });
