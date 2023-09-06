@@ -121,7 +121,7 @@ const TodoItems = () => {
       </ul>
 
       <div className="todo-list-footer">
-        <span className="items-left">{itemsLeft} items</span>
+        <span className="items-left">{itemsLeft} items left</span>
         <TodosCategory setActive={setActive} />
         <button className="clear-completed" onClick={() => clearCompleted()}>
           Clear Completed
