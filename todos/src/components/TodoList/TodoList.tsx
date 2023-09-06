@@ -5,12 +5,10 @@ import TodosCategory from "../TodosCategory/TodosCategory";
 import NewTodoForm from "../NewTodoForm/NewTodoForm";
 
 const TodoList = () => {
-  const [checkedItems, setCheckedItems] = useState([]);
+  const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [filteredTodoItems, setFilteredTodoItems] = useState(todoItems);
 
-  const itemsLeft = todoItems.filter((item) => !checkedItems.includes(item.id)).length;
-
-  const handleCheckboxChange = (itemId) => {
+  const handleCheckboxChange = (itemId: number) => {
     if (checkedItems.includes(itemId)) {
       setCheckedItems(checkedItems.filter((id) => id !== itemId));
     } else {
@@ -18,7 +16,7 @@ const TodoList = () => {
     }
   };
 
-  const isItemChecked = (itemId) => checkedItems.includes(itemId);
+  const isItemChecked = (itemId: number) => checkedItems.includes(itemId);
 
   const setActive = (category: string) => {
     if (category === "All") {
