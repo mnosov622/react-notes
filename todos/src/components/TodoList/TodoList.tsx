@@ -34,9 +34,7 @@ const TodoList = () => {
   };
 
   const clearCompleted = () => {
-    const filteredTodoItems = todoItems.filter((item) => {
-      return !checkedItems.includes(item.id) || item.id === 0;
-    });
+    const filteredTodoItems = todoItems.filter((item) => !checkedItems.includes(item.id));
     setFilteredTodoItems(filteredTodoItems);
     setCheckedItems([]);
   };
